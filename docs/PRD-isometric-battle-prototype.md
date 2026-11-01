@@ -2,7 +2,7 @@
 
 Version: 1.0
 Date: 2026-11-01
-Author: Pedro "Ratto" Paixão
+Responsible: Pedro "Ratto" Paixão
 
 ---
 
