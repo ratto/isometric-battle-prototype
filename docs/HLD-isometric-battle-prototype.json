@@ -1,0 +1,231 @@
+{
+  "meta": {
+    "system": "Isometric Battle Prototype Turn-Based Tactical Combat Spike",
+    "hld_owner": "Pedro \"Ratto\" Paixão",
+    "version": "1.0",
+    "date": "2026-11-01"
+  },
+  "objective": {
+    "technical_goal": "Structure a client-side SPA (Vue 3 + PixiJS + Pinia) capable of running a turn-based tactical combat loop on an isometric grid, with deterministic and testable combat logic decoupled from rendering, and a static data layer (SQLite via WASM) validating a database-integration approach for the future full product.",
+    "problems_addressed": [
+      "No combat logic, rendering, or state management exists today, only the default Vite + Vue 3 + TypeScript scaffold"
+    ],
+    "linked_systems": []
+  },
+  "architecture": {
+    "topology_overview": "Client-side layered SPA, no backend, with unidirectional data flow: Pinia is the single source of truth for battle state, composables hold pure combat logic and commit results via actions, and both PixiJS and the Vue/Tailwind HUD read (and write, via composables) the same store without communicating with each other directly.",
+    "technologies": [
+      "Vite",
+      "Vue 3",
+      "TypeScript",
+      "PixiJS",
+      "Pinia",
+      "GSAP",
+      "pathfinding (npm package)",
+      "Tailwind CSS",
+      "SQLite via WASM",
+      "Vitest"
+    ],
+    "deployment": "cloud",
+    "patterns": [
+      "Layered architecture with unidirectional data flow (state -> logic -> render/UI)",
+      "Separation of state (Pinia), logic (composables), and presentation (Pixi canvas / DOM HUD)"
+    ]
+  },
+  "components": [
+    {
+      "name": "App Shell (Vue + Vite)",
+      "responsibilities": [
+        "Application bootstrap",
+        "Mounts the configuration screen and the battle screen"
+      ],
+      "dependencies": ["Battle Store", "HUD"]
+    },
+    {
+      "name": "Pixi Renderer (usePixiApp composable)",
+      "responsibilities": [
+        "Owns the Pixi Application and its render loop",
+        "Draws tiles, unit sprites, and battle VFX based on store state"
+      ],
+      "dependencies": ["Battle Store", "Animation Layer"]
+    },
+    {
+      "name": "Battle Store (Pinia)",
+      "responsibilities": [
+        "Single source of truth for battle/unit state: stats, HP, status, positions, turn/phase data",
+        "Exposes getters and actions"
+      ],
+      "dependencies": []
+    },
+    {
+      "name": "Combat Composables",
+      "responsibilities": [
+        "Pure combat logic: initiative, hit/damage resolution, movement/pathfinding (via the pathfinding package)",
+        "Computes results and commits them through Battle Store actions"
+      ],
+      "dependencies": ["Battle Store", "Static Data Layer"]
+    },
+    {
+      "name": "Enemy AI Composable",
+      "responsibilities": [
+        "Decides enemy actions (melee approach-and-attack, ranged keep-distance, fallback to Defend/Item)"
+      ],
+      "dependencies": ["Combat Composables", "Battle Store"]
+    },
+    {
+      "name": "HUD (Vue + Tailwind)",
+      "responsibilities": [
+        "DOM overlay: configuration screen, action panels, HP bars",
+        "Reads from and writes to the Battle Store via composables"
+      ],
+      "dependencies": ["Battle Store", "Animation Layer"]
+    },
+    {
+      "name": "Animation Layer (GSAP)",
+      "responsibilities": [
+        "Shared timeline/API for canvas animations (movement, attacks) and DOM animations (damage popups, panel transitions)"
+      ],
+      "dependencies": []
+    },
+    {
+      "name": "Static Data Layer (SQLite via WASM)",
+      "responsibilities": [
+        "Read-only data for Items, Weapons, Upgrades, and Spells",
+        "Seeded at build time, queried client-side via SQL"
+      ],
+      "dependencies": []
+    }
+  ],
+  "flows": {
+    "request_flow": [
+      "HUD captures player input (target/action selection) and calls the corresponding Combat Composable",
+      "Combat Composable validates the action (correct turn, target in range/line of sight) against the Battle Store",
+      "Composable queries the Static Data Layer for weapon/spell attributes involved in the calculation",
+      "Composable runs the pure calculation (hit chance, damage) and calls a Battle Store action to apply the result (HP, status)",
+      "Battle Store triggers reactivity; Pixi Renderer and HUD react to the state change",
+      "Animation Layer (GSAP) plays the VFX/animation corresponding to the event"
+    ],
+    "data_flow": [
+      "Origin: player input (HUD) or AI decision (Enemy AI Composable)",
+      "Transformation: calculation in Combat Composables combining static data from SQLite with dynamic state from the Battle Store",
+      "Destination: Battle Store (mutated state), consumed by Pixi Renderer (drawing) and HUD (display)"
+    ]
+  },
+  "data_model": {
+    "entities": [
+      "Character (player or enemy)",
+      "Weapon",
+      "Item",
+      "Upgrade",
+      "Spell",
+      "Tile/Grid",
+      "BattleState"
+    ],
+    "relationships": [
+      "Character references equipped Weapon/Item/Spell (N:1 or N:N)",
+      "Character occupies a Tile (1:1 per turn)",
+      "BattleState aggregates the list of Characters and the Grid state"
+    ],
+    "source_of_truth": "Dynamic battle data (Character, BattleState, Tile occupancy) in the Pinia Battle Store (in-memory, session-scoped); static data (Weapon, Item, Upgrade, Spell) in SQLite via WASM (read-only, seeded at build time)"
+  },
+  "interfaces": [
+    {
+      "name": "Battle Store API",
+      "kind": "sdk",
+      "protocol": "Pinia getters/actions (TypeScript)",
+      "exposure": "internal",
+      "sla_limits": "p95 < 5 ms per combat-action calculation"
+    },
+    {
+      "name": "Combat Composables API",
+      "kind": "sdk",
+      "protocol": "Synchronous TypeScript functions",
+      "exposure": "internal",
+      "sla_limits": "p95 < 5 ms per combat-action calculation"
+    },
+    {
+      "name": "Static Data Layer API",
+      "kind": "sdk",
+      "protocol": "SQL queries over SQLite/WASM",
+      "exposure": "internal",
+      "sla_limits": "p95 < 5 ms per query"
+    },
+    {
+      "name": "Pixi Renderer API",
+      "kind": "sdk",
+      "protocol": "usePixiApp composable (lifecycle hooks)",
+      "exposure": "internal",
+      "sla_limits": "p95 < 16 ms per frame"
+    }
+  ],
+  "scalability_availability": {
+    "strategies": [
+      "Horizontal scaling fully delegated to Netlify's CDN for serving static assets",
+      "Capping the number of simultaneous sprites/effects in the Pixi Renderer to sustain the minimum frame rate",
+      "No partitioning/sharding, since there is no distributed data"
+    ],
+    "caching": "Static assets (sprites, audio, JS bundle) via Netlify's standard CDN/browser cache; SQLite data loaded once at startup and kept in memory for the session",
+    "partitioning": "Not applicable: SQLite is local and read-only, with no distributed data",
+    "sla_target": "Hypothesis: no custom uptime target; follows Netlify's standard free-tier SLA"
+  },
+  "security": {
+    "authentication": "Not applicable: public application, no login",
+    "authorization": "Not applicable: no distinct roles/permissions, local browser usage only",
+    "secrets_management": "Not applicable: no API keys, credentials, or secrets on the client",
+    "encryption_in_transit": "Not applicable: no sensitive data transmitted",
+    "encryption_at_rest": "Not applicable: battle data lives only in memory during the browser session",
+    "pii_policy": "Not applicable: no personal data is captured or stored"
+  },
+  "observability": {
+    "logs": "Structured console logging, development environment only, for blocked actions (invalid movement, out-of-range/line-of-sight attacks, out-of-turn actions) and missing VFX/audio assets",
+    "metrics": [
+      "FPS during combat, monitored manually (e.g. via devtools/Pixi stats) as the indicator for the performance NFR"
+    ],
+    "tracing": "Not applicable: no distributed calls, the flow is synchronous and local to the browser",
+    "dashboards_alerts": []
+  },
+  "risks": [
+    {
+      "risk": "Isometric pathfinding complexity (Movement/Jump rules) takes longer than estimated",
+      "probability": "medium",
+      "impact": "Delays the prototype, affecting the time/cost measurement goal",
+      "mitigation": [
+        "Implement a simplified version of pathfinding first (without Jump) and evolve it incrementally",
+        "Review the movement cost logic in isolation before integrating it with the UI"
+      ],
+      "contingency_plan": "If the timeline becomes unsustainable, reduce the Jump rule to a single fixed value (e.g. always 1) and document the simplification as a deviation from the GDD"
+    },
+    {
+      "risk": "Runtime performance falls below 30 FPS on weaker machines",
+      "probability": "low",
+      "impact": "Poor experience when demoing the prototype to partners",
+      "mitigation": [
+        "Limit the number of simultaneous sprites/effects",
+        "Test early on modest hardware"
+      ],
+      "contingency_plan": "Reduce VFX quality or grid size if needed"
+    },
+    {
+      "risk": "SQLite-via-WASM integration brings unexpected complexity or compatibility issues",
+      "probability": "medium",
+      "impact": "Delays the prototype and risks failing to validate this part of the architecture, one of the spike's explicit goals",
+      "mitigation": [
+        "Validate the SQLite + WASM integration in isolation before populating all data",
+        "Keep a documented static JSON fallback ready in case WASM proves infeasible within the spike's timeline"
+      ],
+      "contingency_plan": "If SQLite via WASM does not work in time, fall back to static JSON temporarily and record the limitation as a learning from the spike"
+    }
+  ],
+  "adrs_next_steps": {
+    "adrs": [],
+    "pending_decisions": [
+      "Exact SQLite/WASM driver to use (e.g. sql.js, wa-sqlite) not yet chosen",
+      "Exact SQL schema/serialization format for static data (Items, Weapons, Upgrades, Spells)"
+    ],
+    "next_steps": [
+      "Detail the data schema (Character, Weapon, Item, Spell, Upgrade)",
+      "Specify the public API of the Combat Composables (signatures, inputs/outputs)",
+      "Prototype the SQLite/WASM integration in isolation before integrating it with the rest of the system"
+    ]
+  }
+}
