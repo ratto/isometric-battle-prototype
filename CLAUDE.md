@@ -36,6 +36,10 @@ Beyond the existing Vite + Vue 3 + TypeScript base, the following stack was agre
 - **Pinia stores**: data only — battle/unit state. Mutated through actions.
 - **Composables**: combat logic and calculations — pure functions or thin wrappers that compute a result and then call store actions to commit it. Keep rule logic out of components and out of the store's actions themselves where possible, so combat math stays readable even without a test suite.
 
+## Graphic asset creation
+
+Whenever a sprite, spritesheet, tile, tilemap, or any other graphic asset needed for the prototype must be drawn or edited, open a new instance with a new subagent using the Opus model, which will use the `graphic-designer` skill to perform the task. Do not perform this work directly — always delegate it to that subagent. All output (code, comments, identifiers, documentation) must be written in English.
+
 ## Trello guardrail
 
 **Scope restriction — must be followed exactly:** whenever you read, write, or perform any operation on Trello or Trello cards, you MUST use **only** the board "Turn based prototype", at the URL defined by the `TRELLO_URL` variable in `.env`.
