@@ -104,7 +104,7 @@ transcript).
 | --- | ---------- | -------- |
 | 1   | <question> | <answer> |
 
-## Token usage and estimated cost
+## 14. Token usage and estimated cost
 
 | Metric               | Value           |
 | -------------------- | --------------- |
