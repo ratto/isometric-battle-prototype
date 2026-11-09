@@ -35,3 +35,10 @@ Beyond the existing Vite + Vue 3 + TypeScript base, the following stack was agre
 
 - **Pinia stores**: data only — battle/unit state. Mutated through actions.
 - **Composables**: combat logic and calculations — pure functions or thin wrappers that compute a result and then call store actions to commit it. Keep rule logic out of components and out of the store's actions themselves where possible, so combat math stays readable even without a test suite.
+
+## Trello guardrail
+
+**Scope restriction — must be followed exactly:** whenever you read, write, or perform any operation on Trello or Trello cards, you MUST use **only** the board "Turn based prototype", at the URL defined by the `TRELLO_URL` variable in `.env`.
+
+- Use the Trello authentication credentials found in `.env`.
+- You MUST ignore every other board on the account — do not read from, write to, or otherwise touch any board other than "Turn based prototype", even if a task seems related to another board.
