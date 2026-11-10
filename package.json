@@ -6,17 +6,39 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "test": "vitest run"
   },
   "dependencies": {
+    "@vue/devtools-api": "^8.2.1",
+    "gsap": "^3.15.1",
+    "pathfinding": "^0.4.18",
+    "pinia": "^4.1.0",
+    "pixi.js": "^8.22.0",
+    "sql.js": "^1.16.0",
+    "tailwindcss": "^4.3.5",
     "vue": "^3.5.44"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@tailwindcss/vite": "^4.3.5",
     "@types/node": "^24.19.2",
+    "@types/pathfinding": "^0.1.0",
+    "@types/sql.js": "^1.4.11",
     "@vitejs/plugin-vue": "^6.0.10",
     "@vue/tsconfig": "^0.9.1",
+    "eslint": "^10.14.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-vue": "^10.12.1",
+    "globals": "^17.14.0",
+    "prettier": "^3.9.10",
     "typescript": "~6.0.3",
+    "typescript-eslint": "^8.72.2",
     "vite": "^8.3.5",
+    "vitest": "^5.1.0",
+    "vue-eslint-parser": "^10.4.2",
     "vue-tsc": "^3.3.13"
   }
 }

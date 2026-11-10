@@ -1,0 +1,9 @@
+dist
+node_modules
+package-lock.json
+
+# Hand-authored documentation and skill definitions are not Prettier's concern.
+docs
+.claude
+.agents
+skills-lock.json
