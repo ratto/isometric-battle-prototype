@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a **time-boxed spike**, not a production codebase: its only goal is to validate a gameplay hypothesis — a turn-based RPG battle scenario in an isometric environment. Expect the code to prioritize speed of validation over polish, extensibility, or completeness. There is still no git repository initialized.
 
-The repository currently only contains the default Vite + Vue 3 + TypeScript scaffold (`src/App.vue` renders the stock `HelloWorld` component). No battle logic, rendering, or state management has been written yet — the stack below is the agreed target, not yet installed.
+The project's initial setup (dependencies, folder structure, linting/formatting/test tooling) is done — see `docs/features/01-project-initial-setup/`. No battle logic, rendering, or state management has been written yet: `src/App.vue` is an empty shell, and `src/{components,composables,scenes,stores,utils}` are empty folders waiting for the first feature.
 
 **Language policy: all code, comments, identifiers, and documentation in this repository must be written in English**, regardless of the language used to discuss the project. This also applies to every commit message and pull request description/title, which **must always be written in English**.
 
