@@ -1,5 +1,11 @@
 <script setup lang="ts">
-defineProps<{
+import { computed, ref } from 'vue'
+
+import buttonDisabled from '@/assets/ui/pixel-button-disabled.svg'
+import buttonHover from '@/assets/ui/pixel-button-hover.svg'
+import buttonNormal from '@/assets/ui/pixel-button-normal.svg'
+
+const props = defineProps<{
   label: string
   disabled?: boolean
 }>()
@@ -7,6 +13,19 @@ defineProps<{
 const emit = defineEmits<{
   click: []
 }>()
+
+const isHovered = ref(false)
+
+const sprite = computed(() => {
+  if (props.disabled) return buttonDisabled
+  return isHovered.value ? buttonHover : buttonNormal
+})
+
+// JSON.stringify quotes the URL so a raw "(" or ")" inside a data URI (e.g. from an
+// SVG's own text content) can never break the unquoted CSS url(...) syntax.
+const buttonStyle = computed(() => ({
+  backgroundImage: `url(${JSON.stringify(sprite.value)})`,
+}))
 
 function handleClick() {
   emit('click')
@@ -16,14 +35,13 @@ function handleClick() {
 <template>
   <button
     type="button"
-    class="px-6 py-3 text-sm tracking-wider uppercase transition-colors"
-    :class="
-      disabled
-        ? 'cursor-not-allowed bg-slate-700 text-slate-500'
-        : 'cursor-pointer bg-slate-800 text-slate-100 hover:bg-slate-700'
-    "
+    class="h-14 w-56 bg-contain bg-center bg-no-repeat text-sm tracking-wider text-slate-100 uppercase"
+    :class="disabled ? 'cursor-not-allowed text-slate-500' : 'cursor-pointer'"
+    :style="buttonStyle"
     :disabled="disabled"
     @click="handleClick"
+    @mouseenter="isHovered = true"
+    @mouseleave="isHovered = false"
   >
     {{ label }}
   </button>

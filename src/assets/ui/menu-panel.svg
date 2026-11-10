@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Menu modal panel background (reused by the main menu and the "Configure Match" menu).
+  Logical pixel grid: 128x96 (rendered at 512x384, a 4x nearest-neighbour-style upscale).
+  Transparent outside the panel shell so it composites over the background image.
+  Ornate-but-low-colour gold frame over a deep blue field, in the spirit of 16-bit
+  tactical-RPG menu windows.
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="512"
+  height="384"
+  viewBox="0 0 128 96"
+  shape-rendering="crispEdges"
+>
+  <title>Menu modal panel</title>
+
+  <!-- Outer dark outline, chamfered corners -->
+  <polygon
+    id="panel-outline"
+    fill="#0a0c18"
+    points="4,0 124,0 128,4 128,92 124,96 4,96 0,92 0,4"
+  />
+
+  <!-- Gold frame band -->
+  <polygon
+    id="panel-frame"
+    fill="#a98a46"
+    points="5,1 123,1 127,5 127,91 123,95 5,95 1,91 1,5"
+  />
+  <!-- Frame bevel: light on the top/left edges, dark on the bottom/right edges -->
+  <g id="panel-frame-bevel">
+    <rect x="5" y="1" width="118" height="1" fill="#e8d8a0" />
+    <rect x="1" y="5" width="1" height="86" fill="#e8d8a0" />
+    <rect x="5" y="94" width="118" height="1" fill="#7a5c28" />
+    <rect x="126" y="5" width="1" height="86" fill="#7a5c28" />
+  </g>
+
+  <!-- Inner dark separation line -->
+  <polygon
+    id="panel-inner-outline"
+    fill="#0a0c18"
+    points="8,4 120,4 124,8 124,88 120,92 8,92 4,88 4,8"
+  />
+
+  <!-- Panel field -->
+  <polygon
+    id="panel-field"
+    fill="#171c33"
+    points="9,5 119,5 123,9 123,87 119,91 9,91 5,87 5,9"
+  />
+
+  <!-- Thin inset accent line inside the field -->
+  <polygon
+    fill="#39406b"
+    points="13,9 115,9 119,13 119,83 115,87 13,87 9,83 9,13"
+  />
+  <polygon
+    fill="#1e2440"
+    points="14,10 114,10 118,14 118,82 114,86 14,86 10,82 10,14"
+  />
+
+  <!-- Corner gems inside the field -->
+  <g id="panel-corner-gems">
+    <polygon fill="#c8a860" points="18,15 21,18 18,21 15,18" />
+    <polygon fill="#e8d8a0" points="18,16 20,18 18,20 16,18" />
+    <polygon fill="#c8a860" points="110,15 113,18 110,21 107,18" />
+    <polygon fill="#e8d8a0" points="110,16 112,18 110,20 108,18" />
+    <polygon fill="#c8a860" points="18,75 21,78 18,81 15,78" />
+    <polygon fill="#e8d8a0" points="18,76 20,78 18,80 16,78" />
+    <polygon fill="#c8a860" points="110,75 113,78 110,81 107,78" />
+    <polygon fill="#e8d8a0" points="110,76 112,78 110,80 108,78" />
+  </g>
+
+  <!-- Top and bottom centre ornaments straddling the frame -->
+  <g id="panel-centre-ornaments">
+    <polygon fill="#0a0c18" points="64,-1 70,5 64,11 58,5" />
+    <polygon fill="#c8a860" points="64,0 69,5 64,10 59,5" />
+    <polygon fill="#e8d8a0" points="64,2 67,5 64,8 61,5" />
+    <polygon fill="#0a0c18" points="64,85 70,91 64,97 58,91" />
+    <polygon fill="#c8a860" points="64,86 69,91 64,96 59,91" />
+    <polygon fill="#e8d8a0" points="64,88 67,91 64,94 61,91" />
+  </g>
+</svg>
