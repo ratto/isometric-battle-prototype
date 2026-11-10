@@ -8,7 +8,7 @@ This is a **time-boxed spike**, not a production codebase: its only goal is to v
 
 The repository currently only contains the default Vite + Vue 3 + TypeScript scaffold (`src/App.vue` renders the stock `HelloWorld` component). No battle logic, rendering, or state management has been written yet — the stack below is the agreed target, not yet installed.
 
-**Language policy: all code, comments, identifiers, and documentation in this repository must be written in English**, regardless of the language used to discuss the project.
+**Language policy: all code, comments, identifiers, and documentation in this repository must be written in English**, regardless of the language used to discuss the project. This also applies to every commit message and pull request description/title, which **must always be written in English**.
 
 ## Stack
 
@@ -21,7 +21,7 @@ Beyond the existing Vite + Vue 3 + TypeScript base, the following stack was agre
 - **GSAP** — all animation: unit movement and attacks on the Pixi canvas, and HUD/DOM transitions (damage popups, panel transitions) outside the canvas. Used uniformly instead of mixing Pixi's ticker and CSS transitions, so combat and UI animations share one API/timeline model.
 - **Tailwind CSS** — styling for the HUD/UI layer (action panels, HP bars, menus) rendered as a Vue/DOM overlay around the Pixi canvas.
 - **ESLint + Prettier** — linting (`eslint-plugin-vue`, `@typescript-eslint`) and formatting.
-- **No automated test runner.** Given the spike's scope, combat rules are validated manually by playing the prototype (`npm run dev`), not via unit tests.
+- **Vitest** — unit-test runner, scoped to the pure combat formulas in `src/utils/` (initiative, hit/damage resolution, and similar framework-agnostic calculations). Nothing outside `src/utils/` — composables, stores, components, scenes — is expected to carry automated tests in this spike; that code is still validated manually by playing the prototype (`npm run dev`).
 
 ## Architecture
 

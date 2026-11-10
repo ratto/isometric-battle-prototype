@@ -50,7 +50,11 @@ Judged purely on "best way to serve this prototype's own static data," plain JSO
 
 ## Action Items
 
-1. [ ] Choose the SQLite/WASM driver (sql.js vs wa-sqlite) — currently an open decision per the HLD.
+1. [x] Choose the SQLite/WASM driver (sql.js vs wa-sqlite) — currently an open decision per the HLD.
+   Resolved during `01-project-initial-setup` (2026-11-10): **`sql.js`**, chosen for its synchronous
+   API and sufficient maturity for a read-only, build-time-seeded dataset; `wa-sqlite` was not needed at
+   this data volume. Only the dependency was installed in that user story — no schema, seed data, or
+   query was written.
 2. [ ] Define the SQL schema/serialization format for Items, Weapons, Upgrades, Spells.
 3. [ ] Keep an equivalent static JSON dataset ready as the documented fallback.
 4. [ ] Validate the SQLite + WASM integration in isolation before populating all data, per the HLD mitigation.
