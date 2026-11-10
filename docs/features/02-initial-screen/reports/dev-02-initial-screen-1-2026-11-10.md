@@ -119,9 +119,9 @@ components, together with a locally-hosted Press Start 2P font.
 
 | Item | Value |
 | --- | --- |
-| Human approval to push/PR | Pending |
-| PR URL | Not opened yet |
-| Trello card moved to "Done" | No (pending PR, per the skill's sequencing — happens after human confirmation and PR creation) |
+| Human approval to push/PR | Yes |
+| PR URL | https://github.com/ratto/isometric-battle-prototype/pull/4 |
+| Trello card moved to "Done" | Yes |
 
 ## 10. Token usage and estimated cost
 
