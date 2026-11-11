@@ -27,9 +27,13 @@ src/
 ├── assets/       graphics, spritesheets, tilemaps
 ├── components/   the Vue + Tailwind HUD (DOM overlay)
 ├── composables/  reactive combat/rendering logic
+├── data/         the committed static-data SQLite file
 ├── scenes/       the title screen and the battle scene
 ├── stores/       Pinia state
 └── utils/        pure TypeScript, framework-agnostic
+
+scripts/
+└── db/           CLI tooling (reset/seed/inspect) for the static-data SQLite file, run via tsx
 ```
 
 ## Getting started
@@ -42,4 +46,7 @@ npm run preview # preview the production build locally
 npm run lint    # lint .ts and .vue files
 npm run format  # format the project with Prettier
 npm run test    # run the Vitest unit tests
+npm run db:reset   # recreate the static-data SQLite schema from scratch
+npm run db:seed    # (re)populate the static data from the committed seed JSON, upserting by slug
+npm run db:inspect # print every row of every table in the static-data SQLite file
 ```
