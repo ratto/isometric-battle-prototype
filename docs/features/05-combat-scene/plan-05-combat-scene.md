@@ -192,8 +192,8 @@ No new npm packages. New usage of the existing `pixi.js` (^8.22.0) dependency, c
 
 ## 13. Open technical questions
 
-- A dedicated ADR for the composite stacked-column tile-rendering approach is needed (per the interview)
-  before or during implementation — to be produced via the `architecture` skill, not by this plan.
+- ~~A dedicated ADR for the composite stacked-column tile-rendering approach is needed~~ — done:
+  [ADR-0006](../../adr/0006-composite-stacked-columns-for-terrain-elevation.md).
 - Exact riser/top-face tile color palette and the precise "Start Battle" button placement within
   `ConfigureMatchPanel.vue` (above or below "Back") are small visual judgment calls left to the
   `graphic-designer` subagent and implementation time respectively; neither affects this plan's

@@ -120,8 +120,8 @@ All steps run via `npm run dev` in a Chrome tab, driven through the `claude-in-c
 
 ## 8. Known issues / follow-ups
 
-- **A dedicated ADR for the composite stacked-column tile-rendering approach is still needed**, per the
-  plan's own open item — to be produced via the `architecture` skill, not by this implementation task.
+- ~~A dedicated ADR for the composite stacked-column tile-rendering approach is still needed~~ — done:
+  [ADR-0006](../../../adr/0006-composite-stacked-columns-for-terrain-elevation.md).
 - Per the design report's own follow-ups: both cliff faces are equally lit (an accepted trade-off for
   reusing one mirrored sprite), there is no shoreline/water-edge transition tile, tile detail repeats
   identically across all 576 cells, and there is no rock-formation/obstacle or selection-highlight art yet
