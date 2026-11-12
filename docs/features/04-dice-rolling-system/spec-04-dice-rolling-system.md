@@ -58,7 +58,7 @@ extending it piecemeal later — documented here so it isn't mistaken for an ove
 
 ### Out of scope
 
-- Any UI, Pinia store, or composable integration — this is a pure `src/utils/` utility only.
+- Any UI, Pinia store, or composable integration — this is a pure `src/model/` utility only.
 - Critical-hit doubling logic (doubling dice rolls, not the fixed modifier) — left for a future attack
   resolution feature to implement on top of `DieRoll`.
 - The percentile success/failure rule ("≤ target is success", "above 95 always fails") — left for a
@@ -90,9 +90,12 @@ extending it piecemeal later — documented here so it isn't mistaken for an ove
 
 ## 6. Non-functional requirements
 
-- Lives under `src/utils/` as a pure, framework-agnostic module (no Pixi, Pinia, Vue, or GSAP
-  dependency), per [CLAUDE.md](../../../CLAUDE.md)'s architecture split between stateless utils and
-  stateful stores/composables.
+- Lives under `src/model/` as a pure, framework-agnostic module (no Pixi, Pinia, Vue, or GSAP
+  dependency). `src/model/` is a new folder, introduced by this feature (during technical planning), to
+  hold entities/models such as `Dice` and `DieRoll` — distinct from `src/utils/`, which this feature does
+  not use. This refines [CLAUDE.md](../../../CLAUDE.md)'s architecture split between stateless
+  utility/model code and stateful stores/composables; `src/model/` is expected to follow the same
+  no-Pixi/Pinia/Vue/GSAP-dependency rule as `src/utils/`.
 - Written entirely in English (code, identifiers, comments, this document), per this repository's
   language policy.
 
@@ -125,7 +128,7 @@ percentile test resolution), but depends on nothing itself.
 ## 10. Definition of Done
 
 - [ ] `Dice` type and the seven die constants (`d3`, `d4`, `d6`, `d8`, `d10`, `d12`, `d100`) are
-      implemented in `src/utils/`.
+      implemented in `src/model/`.
 - [ ] `DieRoll` class is implemented with a constructor validating a non-empty `roll` array, and
       instance methods `getResult()` and `getDetailedResult()`.
 - [ ] Vitest test suite covers: each die type's value range, `getResult()`'s summation (dice + per-entry
@@ -163,8 +166,9 @@ None.
 | 7 | What should `getDetailedResult()` return? | Per-entry raw value + that entry's modifier + subtotal, plus the overall modifier and grand total. |
 | 8 | Can `DieRoll.roll` be an empty array? | No — constructor must require at least one entry. |
 | 9 | How to express "2d6" given the `{ dice, modifier }` shape has no quantity field? | Two separate entries in the `roll` array, both with `dice: d6`. |
-| 10 | How should this be manually verified, given no automated test runner covers UI/Pinia code? | Vitest coverage in `src/utils/` is sufficient Definition of Done; no manual browser verification required since there's no UI/Pinia integration. |
+| 10 | How should this be manually verified, given no automated test runner covers UI/Pinia code? | Vitest coverage in `src/model/` is sufficient Definition of Done; no manual browser verification required since there's no UI/Pinia integration. |
 | 11 | Are `getResult`/`getDetailedResult` static or instance methods? | Instance methods — the `static` in the original sketch was a slip; they read the instance's own `roll`/`modifier`. |
+| 12 | Where should `Dice`/`DieRoll` live, given the spec originally said `src/utils/`? | A new `src/model/` folder, introduced during technical planning, to hold entities/models going forward — distinct from `src/utils/`. Spec amended accordingly. |
 
 ## 14. Token usage and estimated cost
 
