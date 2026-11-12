@@ -31,7 +31,11 @@ export function usePixiApp(canvasHost: Ref<HTMLElement | null>, options: UsePixi
   })
 
   onUnmounted(() => {
-    app.value?.destroy({ removeView: true }, { children: true, texture: true, textureSource: true })
+    // `texture`/`textureSource` must stay false: tile textures are loaded via `Assets.load`,
+    // which caches them globally by URL for reuse across mounts. Destroying them here would
+    // corrupt that shared cache (Pixi warns "A TextureSource managed by Assets was destroyed
+    // instead of unloaded!") and leave the next CombatScene mount with dead textures.
+    app.value?.destroy({ removeView: true }, { children: true })
     app.value = null
   })
 

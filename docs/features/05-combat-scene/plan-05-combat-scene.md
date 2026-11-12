@@ -128,9 +128,13 @@ No new npm packages. New usage of the existing `pixi.js` (^8.22.0) dependency, c
   left-click must be excluded, per the spec). PixiJS does **not** block the browser's native context
   menu on right-click by itself — a `contextmenu` listener calling `event.preventDefault()` on the canvas
   element is required and confirmed as the documented approach.
-- **Application teardown:** `app.destroy({ removeView: true }, { children: true, texture: true, textureSource: true })`
-  confirmed as the full-cleanup call, needed in `usePixiApp`'s `onUnmounted` to satisfy the spec's
-  "no leaked canvases/listeners across repeated Start Battle -> Back cycles" requirement.
+- **Application teardown:** `app.destroy({ removeView: true }, { children: true })`, needed in
+  `usePixiApp`'s `onUnmounted` to satisfy the spec's "no leaked canvases/listeners across repeated
+  Start Battle -> Back cycles" requirement. `texture`/`textureSource` must stay `false`: the tile
+  textures are loaded via `Assets.load`, which caches them globally by URL for reuse across mounts —
+  destroying them on unmount corrupts that shared cache (confirmed via a manual repro: Pixi logs
+  `[Assets] A TextureSource managed by Assets was destroyed instead of unloaded!` on every "Back"
+  click, and the next "Start Battle" renders a blank/corrupted tilemap).
 
 ## 10. Implementation sequencing
 
