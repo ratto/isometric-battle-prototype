@@ -7,6 +7,7 @@ import PixelButton from './PixelButton.vue'
 
 const emit = defineEmits<{
   back: []
+  startBattle: []
 }>()
 
 // JSON.stringify quotes the URL so a raw "(" or ")" inside the data URI can never
@@ -25,6 +26,7 @@ const panelStyle = computed(() => ({
       Configure Match
     </h2>
     <p class="text-sm text-slate-400">Coming soon</p>
+    <PixelButton label="Start Battle" @click="emit('startBattle')" />
     <PixelButton label="Back" @click="emit('back')" />
   </div>
 </template>
