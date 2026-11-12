@@ -77,6 +77,9 @@ export function useBattlefieldCamera(
       clamp(dragStartPosition.x + dx, bounds.minX, bounds.maxX),
       clamp(dragStartPosition.y + dy, bounds.minY, bounds.maxY),
     )
+    // Force a render on every pan update rather than relying solely on the ticker: for
+    // this static scene, the (cheap) extra render is worth not depending on ticker timing.
+    app.value?.render()
   }
 
   function onPointerUp(event: FederatedPointerEvent) {
@@ -104,6 +107,9 @@ export function useBattlefieldCamera(
 
       bounds = computeBounds(instance, world)
       centerWorld(world)
+      // Centering the freshly-built world can otherwise leave a stale, uncentered frame
+      // on screen until the next ticker-driven render happens to pick it up; render now.
+      instance.render()
 
       instance.stage.eventMode = 'static'
       instance.stage.hitArea = instance.screen

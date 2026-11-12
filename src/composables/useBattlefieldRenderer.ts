@@ -1,53 +1,48 @@
-import { Container, Graphics, type Application } from 'pixi.js'
+import { Assets, Container, Sprite, type Application, type Texture } from 'pixi.js'
 import { ref, watch, type Ref } from 'vue'
 
+import grassTopUrl from '@/assets/tilemaps/tile-grass-top.svg'
+import riserUrl from '@/assets/tilemaps/tile-riser.svg'
+import waterTopUrl from '@/assets/tilemaps/tile-water-top.svg'
 import type { BattlefieldGrid } from '@/model/battlefieldGrid'
-import { gridToScreen, HEIGHT_STEP, TILE_HEIGHT, TILE_WIDTH } from '@/utils/isometricProjection'
-
-const WATER_TOP_COLOR = 0x3a6ea5
-const GRASS_TOP_COLOR = 0x4a7c3c
-const SOUTH_RISER_COLOR = 0x3f3226
-const EAST_RISER_COLOR = 0x4f3f2f
+import { gridToScreen, HEIGHT_STEP, TILE_WIDTH } from '@/utils/isometricProjection'
 
 const HALF_WIDTH = TILE_WIDTH / 2
-const HALF_HEIGHT = TILE_HEIGHT / 2
 
-function createTopFaceTile(height: number): Graphics {
-  const color = height <= 0 ? WATER_TOP_COLOR : GRASS_TOP_COLOR
-
-  return new Graphics()
-    .poly([0, -HALF_HEIGHT, HALF_WIDTH, 0, 0, HALF_HEIGHT, -HALF_WIDTH, 0])
-    .fill({ color })
+type TileTextures = {
+  grassTop: Texture
+  waterTop: Texture
+  riser: Texture
 }
 
-// A riser is one height unit (`HEIGHT_STEP` px tall) of cliff face, extruded straight down
-// in screen space from a tile's south or east edge toward a lower neighbor.
-function createRiserTile(face: 'south' | 'east'): Graphics {
-  const graphic = new Graphics()
+function createTopFaceSprite(height: number, textures: TileTextures): Sprite {
+  const sprite = new Sprite(height <= 0 ? textures.waterTop : textures.grassTop)
+  sprite.anchor.set(0.5)
+  return sprite
+}
+
+// The riser art is authored for the south-facing cliff edge; the east face reuses the same
+// texture mirrored horizontally, per the graphic-designer's design report.
+function createRiserSprite(face: 'south' | 'east', step: number, textures: TileTextures): Sprite {
+  const sprite = new Sprite(textures.riser)
+  const y = step * HEIGHT_STEP
 
   if (face === 'south') {
-    graphic
-      .poly([
-        -HALF_WIDTH,
-        0,
-        0,
-        HALF_HEIGHT,
-        0,
-        HALF_HEIGHT + HEIGHT_STEP,
-        -HALF_WIDTH,
-        HEIGHT_STEP,
-      ])
-      .fill({ color: SOUTH_RISER_COLOR })
-    return graphic
+    sprite.position.set(-HALF_WIDTH, y)
+    return sprite
   }
 
-  graphic
-    .poly([0, HALF_HEIGHT, HALF_WIDTH, 0, HALF_WIDTH, HEIGHT_STEP, 0, HALF_HEIGHT + HEIGHT_STEP])
-    .fill({ color: EAST_RISER_COLOR })
-  return graphic
+  sprite.scale.x = -1
+  sprite.position.set(HALF_WIDTH, y)
+  return sprite
 }
 
-function buildCell(grid: BattlefieldGrid, row: number, col: number): Container {
+function buildCell(
+  grid: BattlefieldGrid,
+  row: number,
+  col: number,
+  textures: TileTextures,
+): Container {
   const height = grid.getHeightAt(row, col)
   const cell = new Container()
   cell.zIndex = row + col
@@ -60,23 +55,48 @@ function buildCell(grid: BattlefieldGrid, row: number, col: number): Container {
     : 0
 
   for (let step = 0; step < southDrop; step++) {
-    const riser = createRiserTile('south')
-    riser.position.set(0, step * HEIGHT_STEP)
-    cell.addChild(riser)
+    cell.addChild(createRiserSprite('south', step, textures))
   }
 
   for (let step = 0; step < eastDrop; step++) {
-    const riser = createRiserTile('east')
-    riser.position.set(0, step * HEIGHT_STEP)
-    cell.addChild(riser)
+    cell.addChild(createRiserSprite('east', step, textures))
   }
 
-  cell.addChild(createTopFaceTile(height))
+  cell.addChild(createTopFaceSprite(height, textures))
 
   const { x, y } = gridToScreen(row, col, height)
   cell.position.set(x, y)
 
   return cell
+}
+
+async function buildBattlefield(
+  instance: Application,
+  grid: BattlefieldGrid,
+  worldContainer: Ref<Container | null>,
+) {
+  const [grassTop, waterTop, riser] = await Promise.all([
+    Assets.load(grassTopUrl),
+    Assets.load(waterTopUrl),
+    Assets.load(riserUrl),
+  ])
+  const textures: TileTextures = { grassTop, waterTop, riser }
+
+  const world = new Container({ sortableChildren: true })
+
+  for (let row = 0; row < grid.rows; row++) {
+    for (let col = 0; col < grid.cols; col++) {
+      world.addChild(buildCell(grid, row, col, textures))
+    }
+  }
+
+  instance.stage.addChild(world)
+  worldContainer.value = world
+
+  // The tilemap is built after an async texture load, which can otherwise leave the
+  // canvas showing a stale pre-build frame until the next ticker-driven render happens
+  // to coincide with one; render immediately so the battlefield appears without delay.
+  instance.render()
 }
 
 /**
@@ -93,16 +113,7 @@ export function useBattlefieldRenderer(app: Ref<Application | null>, grid: Battl
     (instance) => {
       if (!instance) return
 
-      const world = new Container({ sortableChildren: true })
-
-      for (let row = 0; row < grid.rows; row++) {
-        for (let col = 0; col < grid.cols; col++) {
-          world.addChild(buildCell(grid, row, col))
-        }
-      }
-
-      instance.stage.addChild(world)
-      worldContainer.value = world
+      void buildBattlefield(instance, grid, worldContainer)
     },
     { immediate: true },
   )
