@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
+import CombatScene from '@/scenes/CombatScene.vue'
 import InicialMenuScene from '@/scenes/InicialMenuScene.vue'
 import { useSceneStore } from '@/stores/scene'
 
 const sceneStore = useSceneStore()
 
-// The 'battle' scene is not implemented yet; this feature only ever renders the initial menu.
 const activeSceneComponent = computed(() =>
-  sceneStore.activeScene === 'initial-menu' ? InicialMenuScene : null,
+  sceneStore.activeScene === 'battle' ? CombatScene : InicialMenuScene,
 )
 </script>
 

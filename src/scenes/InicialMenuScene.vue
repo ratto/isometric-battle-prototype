@@ -4,10 +4,12 @@ import { computed, ref } from 'vue'
 import background from '@/assets/ui/initial-screen-background.svg'
 import ConfigureMatchPanel from '@/components/initial-menu/ConfigureMatchPanel.vue'
 import MainMenuPanel from '@/components/initial-menu/MainMenuPanel.vue'
+import { useSceneStore } from '@/stores/scene'
 
 type InnerMenu = 'main' | 'configure-match'
 
 const activeMenu = ref<InnerMenu>('main')
+const sceneStore = useSceneStore()
 
 // JSON.stringify quotes the URL so a raw "(" or ")" inside the data URI can never
 // break the unquoted CSS url(...) syntax.
@@ -22,6 +24,10 @@ const backgroundStyle = computed(() => ({
     :style="backgroundStyle"
   >
     <MainMenuPanel v-if="activeMenu === 'main'" @start="activeMenu = 'configure-match'" />
-    <ConfigureMatchPanel v-else @back="activeMenu = 'main'" />
+    <ConfigureMatchPanel
+      v-else
+      @back="activeMenu = 'main'"
+      @start-battle="sceneStore.setActiveScene('battle')"
+    />
   </div>
 </template>
