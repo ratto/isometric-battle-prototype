@@ -76,7 +76,7 @@ Only the Sistema Daemon attributes that feed a combat formula are tracked per ch
 
 ### Party classes (PC)
 
-9 fixed classes. Weapon is chosen per character at the configuration screen, from the listed options for that class; armor/IP is fixed per class. Each class has 3 unique abilities (see Abilities section) usable via "Cast Spell/Use Ability" (FR-003).
+8 fixed classes. Weapon is chosen per character at the configuration screen, from the listed options for that class; armor/IP is fixed per class. Each class has 3 unique abilities (see Abilities section) usable via "Cast Spell/Use Ability" (FR-003).
 
 | Class               | Role             | Key attributes | Weapon choices                       | Armor (IP)                         |
 | ------------------- | ---------------- | -------------- | ------------------------------------ | ---------------------------------- |
@@ -87,10 +87,7 @@ Only the Sistema Daemon attributes that feed a combat formula are tracked per ch
 | Ladino (Rogue)      | DPS / stealth    | High DEX, AGI  | Faca, Adaga Suíça                    | Roupa Comum (IP 0)                 |
 | Bárbaro (Barbarian) | DPS / tank       | High FR, CON   | Machado Bárbaro, Espada de Duas Mãos | Armadura de Couro Reforçado (IP 1) |
 | Bardo (Bard)        | Support          | High WILL, CAR | Espada Curta, Florete                | Corselete de Tecido (IP 1)         |
-| Gunslinger          | Ranged / DPS     | High DEX, PER  | Pistola (custom, see below)          | Corselete de Couro (IP 1)          |
 | Brawler             | Melee / DPS      | High FR, DEX   | Briga (unarmed)                      | Roupa Comum (IP 0)                 |
-
-**Pistola (custom weapon, not in the Daemon melee table):** damage `2d6`, initiative modifier `−8`, treated as a ranged weapon for all ranged rules in `daemon-system-rules-reference.md` section 7 (defense value against it is always 0, double skill-point cost, no `Esquiva` allowed, half damage beyond normal range, automatic miss beyond max range). Range: 30/80 (normal/max, in tiles).
 
 ### Enemies (monsters)
 
@@ -142,9 +139,6 @@ Follows FR-003 exactly; this section only adds the content needed to make the ru
 | Bardo      | Canto de Encorajamento | −3                              |
 | Bardo      | Melodia Zombeteira     | −3                              |
 | Bardo      | Verso Curativo         | −4                              |
-| Gunslinger | Disparo Duplo          | −6                              |
-| Gunslinger | Rolamento Evasivo      | −2                              |
-| Gunslinger | Tiro Perfurante        | −5                              |
 | Brawler    | Combo                  | −4                              |
 | Brawler    | Agarrão                | −5                              |
 | Brawler    | Chute Giratório        | −6                              |
@@ -189,9 +183,6 @@ Each class has exactly 3 abilities, usable via the "Cast Spell/Use Ability" acti
 | Bardo      | Canto de Encorajamento | All allies within 3 tiles: `+2` to their next initiative roll.                                                                                                                                                       |
 | Bardo      | Melodia Zombeteira     | All enemies within 3 tiles: `−15%` to their next attack roll.                                                                                                                                                        |
 | Bardo      | Verso Curativo         | All allies within a 2-tile radius of the Bardo heal `1d6` HP.                                                                                                                                                        |
-| Gunslinger | Disparo Duplo          | Two attack rolls against the same or different targets in range, at `−15%` to hit each.                                                                                                                              |
-| Gunslinger | Rolamento Evasivo      | Moves up to 2 tiles (does not consume normal Movement) and gains Total Defense this round.                                                                                                                           |
-| Gunslinger | Tiro Perfurante        | Single-target attack that ignores half of the target's IP (rounded down).                                                                                                                                            |
 | Brawler    | Combo                  | Two attack rolls against the same target at `−10%` to hit each, using `Briga` damage (`1d3` + FR bonus) each.                                                                                                        |
 | Brawler    | Agarrão                | Single-target attack (`1d3` + FR bonus, no critical); on a hit, target cannot move on its next turn.                                                                                                                 |
 | Brawler    | Chute Giratório        | All enemies adjacent to the Brawler take a `Briga` attack roll.                                                                                                                                                      |
@@ -240,11 +231,10 @@ Per FR-006, extended with concrete tie-breaking logic needed for implementation:
 
 ## Content summary (build checklist)
 
-- 9 PC classes × weapon choices × 3 abilities each = 27 abilities to implement and balance.
+- 8 PC classes × weapon choices × 3 abilities each = 24 abilities to implement and balance.
 - 3 monster types with fixed stat blocks and 2 (Xamã Goblin: custom heal/debuff) special abilities.
 - 1 consumable item (Poção de Cura).
 - 1 battlefield: 24x24 grid, variable height, 1 obstacle type (rock formation), 1 fixed 8x2 party zone.
-- 1 custom weapon (Pistola) beyond the Daemon melee/ranged weapons table.
 
 ---
 
