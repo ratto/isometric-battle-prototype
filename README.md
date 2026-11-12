@@ -12,12 +12,12 @@ See [CLAUDE.md](CLAUDE.md) for the project's scope, architecture, and working co
 - **Vite + Vue 3 + TypeScript** — application shell
 - **PixiJS** — canvas/WebGL renderer for the isometric scene
 - **Pinia** — single source of truth for battle state
-- **Composables** — pure/stateless combat logic, consuming `src/utils/`
+- **Composables** — pure/stateless combat logic, consuming `src/model/` and `src/utils/`
 - **`pathfinding`** — grid traversal, A\*, and range/distance queries
 - **GSAP** — all animation, canvas and DOM
 - **Tailwind CSS** — HUD/UI styling layer
 - **SQLite via WASM (`sql.js`)** — static game data (Items, Weapons, Upgrades, Spells)
-- **Vitest** — unit tests for the pure combat formulas in `src/utils/`
+- **Vitest** — unit tests for `src/model/` entities and the pure combat formulas in `src/utils/`
 - **ESLint + Prettier** — linting and formatting
 
 ## Project structure
@@ -27,6 +27,10 @@ src/
 ├── assets/       graphics, spritesheets, tilemaps
 ├── components/   the Vue + Tailwind HUD (DOM overlay)
 ├── composables/  reactive combat/rendering logic
+├── model/        entities/models (typed data shapes with attached behavior)
+├── scenes/       the title screen and the battle scene
+├── stores/       Pinia state
+└── utils/        pure TypeScript, framework-agnostic functions
 ├── data/         the committed static-data SQLite file
 ├── scenes/       the title screen and the battle scene
 ├── stores/       Pinia state
