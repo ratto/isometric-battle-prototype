@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a **time-boxed spike**, not a production codebase: its only goal is to validate a gameplay hypothesis — a turn-based RPG battle scenario in an isometric environment. Expect the code to prioritize speed of validation over polish, extensibility, or completeness. There is still no git repository initialized.
 
-The project's initial setup (dependencies, folder structure, linting/formatting/test tooling) is done — see `docs/features/01-project-initial-setup/`. No battle logic, rendering, or state management has been written yet: `src/App.vue` is an empty shell, and `src/{components,composables,scenes,stores,utils}` are empty folders waiting for the first feature.
+The project's initial setup (dependencies, folder structure, linting/formatting/test tooling) is done — see `docs/features/01-project-initial-setup/`. No battle logic, rendering, or state management has been written yet: `src/App.vue` is an empty shell, and `src/{components,composables,scenes,stores,utils}` are empty folders waiting for the first feature. `src/model/` holds entities/models (typed data shapes with attached behavior, e.g. `Dice`/`DieRoll`) and is kept distinct from `src/utils/` (pure, stateless functions) — see [ADR-0005](docs/adr/0005-src-model-folder-for-entities.md).
 
 **Language policy: all code, comments, identifiers, and documentation in this repository must be written in English**, regardless of the language used to discuss the project. This also applies to every commit message and pull request description/title, which **must always be written in English**.
 
