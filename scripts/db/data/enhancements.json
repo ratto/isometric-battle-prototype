@@ -1,0 +1,530 @@
+[
+  {
+    "id": "harmless-appearance",
+    "name": "Harmless Appearance",
+    "group_key": "harmless-appearance",
+    "polarity": "positive",
+    "cost": 1,
+    "effect": "Looks harmless; automatic Initiative win on the first encounter with a given opponent (lost once they know better)."
+  },
+  {
+    "id": "arcane-library-tier-1",
+    "name": "Arcane Library (Tier 1)",
+    "group_key": "arcane-library",
+    "polarity": "positive",
+    "cost": 1,
+    "effect": "Library of 3 / 5 / 7 Rituals."
+  },
+  {
+    "id": "arcane-library-tier-2",
+    "name": "Arcane Library (Tier 2)",
+    "group_key": "arcane-library",
+    "polarity": "positive",
+    "cost": 2,
+    "effect": "Library of 3 / 5 / 7 Rituals."
+  },
+  {
+    "id": "arcane-library-tier-3",
+    "name": "Arcane Library (Tier 3)",
+    "group_key": "arcane-library",
+    "polarity": "positive",
+    "cost": 3,
+    "effect": "Library of 3 / 5 / 7 Rituals."
+  },
+  {
+    "id": "channeler-tier-1",
+    "name": "Channeler (Tier 1)",
+    "group_key": "channeler",
+    "polarity": "positive",
+    "cost": 2,
+    "effect": "Convert HP into Magic Points: 6 HP → 1 MP at 2 points; 3 HP → 1 MP at 4 points."
+  },
+  {
+    "id": "channeler-tier-2",
+    "name": "Channeler (Tier 2)",
+    "group_key": "channeler",
+    "polarity": "positive",
+    "cost": 4,
+    "effect": "Convert HP into Magic Points: 6 HP → 1 MP at 2 points; 3 HP → 1 MP at 4 points."
+  },
+  {
+    "id": "crowd-control",
+    "name": "Crowd Control",
+    "group_key": "crowd-control",
+    "polarity": "positive",
+    "cost": 3,
+    "effect": "Gift of speech; manipulate crowds (Leadership test) — incite, sell, give speeches."
+  },
+  {
+    "id": "courage",
+    "name": "Courage",
+    "group_key": "courage",
+    "polarity": "positive",
+    "cost": 2,
+    "effect": "Immune to conventional fear; doubles WILL resistance vs. fear effects."
+  },
+  {
+    "id": "magic-powers-tier-1",
+    "name": "Magic Powers (Tier 1)",
+    "group_key": "magic-powers",
+    "polarity": "positive",
+    "cost": 1,
+    "effect": "Scaling Focus/Magic points (1 point = 2 Focus/1 Magic ... 5 points = 9 Focus/7 Magic)."
+  },
+  {
+    "id": "magic-powers-tier-2",
+    "name": "Magic Powers (Tier 2)",
+    "group_key": "magic-powers",
+    "polarity": "positive",
+    "cost": 2,
+    "effect": "Scaling Focus/Magic points (1 point = 2 Focus/1 Magic ... 5 points = 9 Focus/7 Magic)."
+  },
+  {
+    "id": "magic-powers-tier-3",
+    "name": "Magic Powers (Tier 3)",
+    "group_key": "magic-powers",
+    "polarity": "positive",
+    "cost": 3,
+    "effect": "Scaling Focus/Magic points (1 point = 2 Focus/1 Magic ... 5 points = 9 Focus/7 Magic)."
+  },
+  {
+    "id": "magic-powers-tier-4",
+    "name": "Magic Powers (Tier 4)",
+    "group_key": "magic-powers",
+    "polarity": "positive",
+    "cost": 4,
+    "effect": "Scaling Focus/Magic points (1 point = 2 Focus/1 Magic ... 5 points = 9 Focus/7 Magic)."
+  },
+  {
+    "id": "magic-powers-tier-5",
+    "name": "Magic Powers (Tier 5)",
+    "group_key": "magic-powers",
+    "polarity": "positive",
+    "cost": 5,
+    "effect": "Scaling Focus/Magic points (1 point = 2 Focus/1 Magic ... 5 points = 9 Focus/7 Magic)."
+  },
+  {
+    "id": "faith-points-tier-1",
+    "name": "Faith Points (Tier 1)",
+    "group_key": "faith-points",
+    "polarity": "positive",
+    "cost": 1,
+    "effect": "Follower(1) / Faithful(2) / Enthusiast(3) / Fanatic(5) / Radical(7) Faith points."
+  },
+  {
+    "id": "faith-points-tier-2",
+    "name": "Faith Points (Tier 2)",
+    "group_key": "faith-points",
+    "polarity": "positive",
+    "cost": 2,
+    "effect": "Follower(1) / Faithful(2) / Enthusiast(3) / Fanatic(5) / Radical(7) Faith points."
+  },
+  {
+    "id": "faith-points-tier-3",
+    "name": "Faith Points (Tier 3)",
+    "group_key": "faith-points",
+    "polarity": "positive",
+    "cost": 3,
+    "effect": "Follower(1) / Faithful(2) / Enthusiast(3) / Fanatic(5) / Radical(7) Faith points."
+  },
+  {
+    "id": "faith-points-tier-4",
+    "name": "Faith Points (Tier 4)",
+    "group_key": "faith-points",
+    "polarity": "positive",
+    "cost": 4,
+    "effect": "Follower(1) / Faithful(2) / Enthusiast(3) / Fanatic(5) / Radical(7) Faith points."
+  },
+  {
+    "id": "faith-points-tier-5",
+    "name": "Faith Points (Tier 5)",
+    "group_key": "faith-points",
+    "polarity": "positive",
+    "cost": 5,
+    "effect": "Follower(1) / Faithful(2) / Enthusiast(3) / Fanatic(5) / Radical(7) Faith points."
+  },
+  {
+    "id": "heroic-points-tier-1",
+    "name": "Heroic Points (Tier 1)",
+    "group_key": "heroic-points",
+    "polarity": "positive",
+    "cost": 1,
+    "effect": "Brave(1) / Valiant(2) / Intrepid(3) / Hero(4) — extra heroic HP per level."
+  },
+  {
+    "id": "heroic-points-tier-2",
+    "name": "Heroic Points (Tier 2)",
+    "group_key": "heroic-points",
+    "polarity": "positive",
+    "cost": 2,
+    "effect": "Brave(1) / Valiant(2) / Intrepid(3) / Hero(4) — extra heroic HP per level."
+  },
+  {
+    "id": "heroic-points-tier-3",
+    "name": "Heroic Points (Tier 3)",
+    "group_key": "heroic-points",
+    "polarity": "positive",
+    "cost": 3,
+    "effect": "Brave(1) / Valiant(2) / Intrepid(3) / Hero(4) — extra heroic HP per level."
+  },
+  {
+    "id": "heroic-points-tier-4",
+    "name": "Heroic Points (Tier 4)",
+    "group_key": "heroic-points",
+    "polarity": "positive",
+    "cost": 4,
+    "effect": "Brave(1) / Valiant(2) / Intrepid(3) / Hero(4) — extra heroic HP per level."
+  },
+  {
+    "id": "quick-draw",
+    "name": "Quick Draw",
+    "group_key": "quick-draw",
+    "polarity": "positive",
+    "cost": 2,
+    "effect": "Draw a weapon without spending an action; +4 Initiative that round."
+  },
+  {
+    "id": "secret-society-tier-1",
+    "name": "Secret Society (Tier 1)",
+    "group_key": "secret-society",
+    "polarity": "positive",
+    "cost": 3,
+    "effect": "Outer-circle/apprentice member or inner-circle member with rank, of a mystic order."
+  },
+  {
+    "id": "secret-society-tier-2",
+    "name": "Secret Society (Tier 2)",
+    "group_key": "secret-society",
+    "polarity": "positive",
+    "cost": 5,
+    "effect": "Outer-circle/apprentice member or inner-circle member with rank, of a mystic order."
+  },
+  {
+    "id": "calm-temperament",
+    "name": "Calm Temperament",
+    "group_key": "calm-temperament",
+    "polarity": "positive",
+    "cost": 1,
+    "effect": "Doubles test values for self-control/concealment tests (WILL, Charisma, Fast Talk, Intimidation)."
+  },
+  {
+    "id": "eternal-life-tier-1",
+    "name": "Eternal Life (Tier 1)",
+    "group_key": "eternal-life",
+    "polarity": "positive",
+    "cost": 3,
+    "effect": "Lived 100-150 / 200-250 / 300-400 years; grants +100/+150/+200 skill points (top tier implies a powerful enemy)."
+  },
+  {
+    "id": "eternal-life-tier-2",
+    "name": "Eternal Life (Tier 2)",
+    "group_key": "eternal-life",
+    "polarity": "positive",
+    "cost": 4,
+    "effect": "Lived 100-150 / 200-250 / 300-400 years; grants +100/+150/+200 skill points (top tier implies a powerful enemy)."
+  },
+  {
+    "id": "eternal-life-tier-3",
+    "name": "Eternal Life (Tier 3)",
+    "group_key": "eternal-life",
+    "polarity": "positive",
+    "cost": 5,
+    "effect": "Lived 100-150 / 200-250 / 300-400 years; grants +100/+150/+200 skill points (top tier implies a powerful enemy)."
+  },
+  {
+    "id": "iron-will",
+    "name": "Iron Will",
+    "group_key": "iron-will",
+    "polarity": "positive",
+    "cost": 2,
+    "effect": "+25% on WILL-based mental resistance tests."
+  },
+  {
+    "id": "acrobatic",
+    "name": "Acrobatic",
+    "group_key": "acrobatic",
+    "polarity": "positive",
+    "cost": 2,
+    "effect": "+25% on AGILITY-based tests."
+  },
+  {
+    "id": "ambidexterity",
+    "name": "Ambidexterity",
+    "group_key": "ambidexterity",
+    "polarity": "positive",
+    "cost": 4,
+    "effect": "Weapons are used with the same difficulty in either hand."
+  },
+  {
+    "id": "brute-attack-tier-1",
+    "name": "Brute Attack (Tier 1)",
+    "group_key": "brute-attack",
+    "polarity": "positive",
+    "cost": 1,
+    "effect": "Add +2 to damage (1) or +4 (3)."
+  },
+  {
+    "id": "brute-attack-tier-2",
+    "name": "Brute Attack (Tier 2)",
+    "group_key": "brute-attack",
+    "polarity": "positive",
+    "cost": 3,
+    "effect": "Add +2 to damage (1) or +4 (3)."
+  },
+  {
+    "id": "attack-on-the-move",
+    "name": "Attack on the Move",
+    "group_key": "attack-on-the-move",
+    "polarity": "positive",
+    "cost": 4,
+    "effect": "Allows you to move, perform an action, and move again."
+  },
+  {
+    "id": "special-attack",
+    "name": "Special Attack",
+    "group_key": "special-attack",
+    "polarity": "positive",
+    "cost": 4,
+    "effect": "Use a Heroic Point to double the damage dealt."
+  },
+  {
+    "id": "enhanced-sneak-attack-tier-1",
+    "name": "Enhanced Sneak Attack (Tier 1)",
+    "group_key": "enhanced-sneak-attack",
+    "polarity": "positive",
+    "cost": 2,
+    "effect": "If you hit an enemy from behind, add 1d6 extra damage (2); if the attack is a surprise attack, in addition to the extra damage, treat the hit as a Critical Hit (4)."
+  },
+  {
+    "id": "enhanced-sneak-attack-tier-2",
+    "name": "Enhanced Sneak Attack (Tier 2)",
+    "group_key": "enhanced-sneak-attack",
+    "polarity": "positive",
+    "cost": 4,
+    "effect": "If you hit an enemy from behind, add 1d6 extra damage (2); if the attack is a surprise attack, in addition to the extra damage, treat the hit as a Critical Hit (4)."
+  },
+  {
+    "id": "powerful-attack",
+    "name": "Powerful Attack",
+    "group_key": "powerful-attack",
+    "polarity": "positive",
+    "cost": 2,
+    "effect": "Use a Heroic Point to add 1d6 damage and push the enemy back."
+  },
+  {
+    "id": "brute-tier-1",
+    "name": "Brute (Tier 1)",
+    "group_key": "brute",
+    "polarity": "positive",
+    "cost": 1,
+    "effect": "CON+1 (1), STR+1 and CON+1 (2), or STR+1 and CON+2 (3)."
+  },
+  {
+    "id": "brute-tier-2",
+    "name": "Brute (Tier 2)",
+    "group_key": "brute",
+    "polarity": "positive",
+    "cost": 2,
+    "effect": "CON+1 (1), STR+1 and CON+1 (2), or STR+1 and CON+2 (3)."
+  },
+  {
+    "id": "brute-tier-3",
+    "name": "Brute (Tier 3)",
+    "group_key": "brute",
+    "polarity": "positive",
+    "cost": 3,
+    "effect": "CON+1 (1), STR+1 and CON+1 (2), or STR+1 and CON+2 (3)."
+  },
+  {
+    "id": "camouflage",
+    "name": "Camouflage",
+    "group_key": "camouflage",
+    "polarity": "positive",
+    "cost": 1,
+    "effect": "Add 10% to tests for hiding and stealth."
+  },
+  {
+    "id": "cause-bleeding",
+    "name": "Cause Bleeding",
+    "group_key": "cause-bleeding",
+    "polarity": "positive",
+    "cost": 2,
+    "effect": "Use a Heroic Point to add 1d6 to damage and leave the enemy with the 'bleeding' status."
+  },
+  {
+    "id": "demon-hunter",
+    "name": "Demon Hunter",
+    "group_key": "demon-hunter",
+    "polarity": "positive",
+    "cost": 2,
+    "effect": "Add 25% hit chance and 1d6 damage against 'demon' type enemies."
+  },
+  {
+    "id": "fatal-cut",
+    "name": "Fatal Cut",
+    "group_key": "fatal-cut",
+    "polarity": "positive",
+    "cost": 2,
+    "effect": "Use a Heroic Point to deal critical damage when hitting an enemy."
+  },
+  {
+    "id": "deflect-objects",
+    "name": "Deflect Objects",
+    "group_key": "deflect-objects",
+    "polarity": "positive",
+    "cost": 1,
+    "effect": "Add 25% chance to deflect when targeted by projectiles or thrown objects."
+  },
+  {
+    "id": "hard-to-kill",
+    "name": "Hard to Kill",
+    "group_key": "hard-to-kill",
+    "polarity": "positive",
+    "cost": 3,
+    "effect": "When taking damage that would reduce your HP to 0 or less, add your Constitution modifier as HP (this enhancement can only be used once per combat)."
+  },
+  {
+    "id": "combat-specialization-tier-1",
+    "name": "Combat Specialization (Tier 1)",
+    "group_key": "combat-specialization",
+    "polarity": "positive",
+    "cost": 2,
+    "effect": "Add 25% chance to defend against the next attack if taking a defensive stance (2); additionally, if the received attack is melee, perform a counter-attack (4)."
+  },
+  {
+    "id": "combat-specialization-tier-2",
+    "name": "Combat Specialization (Tier 2)",
+    "group_key": "combat-specialization",
+    "polarity": "positive",
+    "cost": 4,
+    "effect": "Add 25% chance to defend against the next attack if taking a defensive stance (2); additionally, if the received attack is melee, perform a counter-attack (4)."
+  },
+  {
+    "id": "supernatural-dodge",
+    "name": "Supernatural Dodge",
+    "group_key": "supernatural-dodge",
+    "polarity": "positive",
+    "cost": 4,
+    "effect": "Add 25% chance to dodge an attack."
+  },
+  {
+    "id": "true-arrow",
+    "name": "True Arrow",
+    "group_key": "true-arrow",
+    "polarity": "positive",
+    "cost": 2,
+    "effect": "Add 25% chance to hit an attack with a ranged weapon."
+  },
+  {
+    "id": "weapon-focus-tier-1",
+    "name": "Weapon Focus (Tier 1)",
+    "group_key": "weapon-focus",
+    "polarity": "positive",
+    "cost": 2,
+    "effect": "Add 25% chance to hit an attack (2); or 25% chance to hit an attack and 25% chance to parry with your weapon (3); or 25% chance to hit an attack, 25% chance to parry with your weapon, and +1d6 damage with it on a hit (4)."
+  },
+  {
+    "id": "weapon-focus-tier-2",
+    "name": "Weapon Focus (Tier 2)",
+    "group_key": "weapon-focus",
+    "polarity": "positive",
+    "cost": 3,
+    "effect": "Add 25% chance to hit an attack (2); or 25% chance to hit an attack and 25% chance to parry with your weapon (3); or 25% chance to hit an attack, 25% chance to parry with your weapon, and +1d6 damage with it on a hit (4)."
+  },
+  {
+    "id": "weapon-focus-tier-3",
+    "name": "Weapon Focus (Tier 3)",
+    "group_key": "weapon-focus",
+    "polarity": "positive",
+    "cost": 4,
+    "effect": "Add 25% chance to hit an attack (2); or 25% chance to hit an attack and 25% chance to parry with your weapon (3); or 25% chance to hit an attack, 25% chance to parry with your weapon, and +1d6 damage with it on a hit (4)."
+  },
+  {
+    "id": "powerful-thought-form-tier-1",
+    "name": "Powerful Thought-Form (Tier 1)",
+    "group_key": "powerful-thought-form",
+    "polarity": "positive",
+    "cost": 1,
+    "effect": "Add 1d6 to your magic damage or your healing (1) or 2d6 (2)."
+  },
+  {
+    "id": "powerful-thought-form-tier-2",
+    "name": "Powerful Thought-Form (Tier 2)",
+    "group_key": "powerful-thought-form",
+    "polarity": "positive",
+    "cost": 2,
+    "effect": "Add 1d6 to your magic damage or your healing (1) or 2d6 (2)."
+  },
+  {
+    "id": "blood-magic",
+    "name": "Blood Magic",
+    "group_key": "blood-magic",
+    "polarity": "positive",
+    "cost": 2,
+    "effect": "You can use your HP (hit points) instead of MP (mana points) when casting a spell or ritual."
+  },
+  {
+    "id": "multiple-shot",
+    "name": "Multiple Shot",
+    "group_key": "multiple-shot",
+    "polarity": "positive",
+    "cost": 2,
+    "effect": "Use a Heroic Point to perform 3 attacks with your ranged weapon."
+  },
+  {
+    "id": "haunted",
+    "name": "Haunted",
+    "group_key": "haunted",
+    "polarity": "negative",
+    "cost": -2,
+    "effect": "-25% on WILL-based fear resistance tests."
+  },
+  {
+    "id": "unlucky-tier-1",
+    "name": "Unlucky (Tier 1)",
+    "group_key": "unlucky",
+    "polarity": "negative",
+    "cost": -2,
+    "effect": "Every 4 rolls there is a 50% chance of automatic failure (-2), or every 2 rolls there is a 50% chance of failure (-4)."
+  },
+  {
+    "id": "unlucky-tier-2",
+    "name": "Unlucky (Tier 2)",
+    "group_key": "unlucky",
+    "polarity": "negative",
+    "cost": -4,
+    "effect": "Every 4 rolls there is a 50% chance of automatic failure (-2), or every 2 rolls there is a 50% chance of failure (-4)."
+  },
+  {
+    "id": "distraction",
+    "name": "Distraction",
+    "group_key": "distraction",
+    "polarity": "negative",
+    "cost": -1,
+    "effect": "Reduce your Initiative by 1."
+  },
+  {
+    "id": "overconfidence",
+    "name": "Overconfidence",
+    "group_key": "overconfidence",
+    "polarity": "negative",
+    "cost": -1,
+    "effect": "You can only move before performing an action."
+  },
+  {
+    "id": "fury",
+    "name": "Fury",
+    "group_key": "fury",
+    "polarity": "negative",
+    "cost": -4,
+    "effect": "When reduced to 25% of your HP (rounded up), you enter a state of fury for 1d3 turns, and while in this state, you will attack anyone within reach, chasing the nearest enemy or ally to strike them."
+  },
+  {
+    "id": "nearsightedness",
+    "name": "Nearsightedness",
+    "group_key": "nearsightedness",
+    "polarity": "negative",
+    "cost": -2,
+    "effect": "Reduce your visual range by 2 tiles."
+  }
+]
