@@ -1,28 +1,10 @@
-import initSqlJs from 'sql.js'
-import sqlWasmUrl from 'sql.js/dist/sql-wasm-browser.wasm?url'
-
-import gameDataUrl from '@/data/game-data.sqlite?url'
-
+import { loadGameDatabase, queryTable, type Database } from './sqliteDatabase'
 import { WeaponSkillGroup } from './weaponSkillGroup'
 import type { Weapon } from './weapon'
 
-type SqlJsStatic = Awaited<ReturnType<typeof initSqlJs>>
-type Database = InstanceType<SqlJsStatic['Database']>
+export const loadWeaponryDatabase = loadGameDatabase
 
-export async function loadWeaponryDatabase(): Promise<Database> {
-  const SQL = await initSqlJs({ locateFile: () => sqlWasmUrl })
-  const response = await fetch(gameDataUrl)
-  const buffer = await response.arrayBuffer()
-
-  return new SQL.Database(new Uint8Array(buffer))
-}
-
-export function mapRowToWeapon(row: unknown[], columns: string[]): Weapon {
-  const rowObject: Record<string, unknown> = {}
-  columns.forEach((column, index) => {
-    rowObject[column] = row[index]
-  })
-
+export function mapRowToWeapon(rowObject: Record<string, unknown>): Weapon {
   return {
     slug: rowObject.slug as string,
     name: rowObject.name as string,
@@ -39,9 +21,5 @@ export function mapRowToWeapon(row: unknown[], columns: string[]): Weapon {
 }
 
 export function queryAllWeapons(db: Database): Weapon[] {
-  const result = db.exec('SELECT * FROM WEAPONRY;')
-  if (result.length === 0) return []
-
-  const { columns, values } = result[0]
-  return values.map((row: unknown[]) => mapRowToWeapon(row, columns))
+  return queryTable(db, 'WEAPONRY', mapRowToWeapon)
 }
