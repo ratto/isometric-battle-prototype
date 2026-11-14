@@ -6,6 +6,7 @@ import { useCharactersStore } from '@/stores/characters'
 
 import AttributeList from './AttributeList.vue'
 import ClassSelect from './ClassSelect.vue'
+import EnhancementsPanel from './EnhancementsPanel.vue'
 import PixelButton from './PixelButton.vue'
 import WeaponSelect from './WeaponSelect.vue'
 
@@ -25,23 +26,29 @@ const panelStyle = computed(() => ({
 
 <template>
   <div
-    class="flex h-120 w-md flex-col items-center justify-center gap-3 bg-size[100%_100%] bg-center bg-no-repeat px-16"
+    class="flex h-120 w-md flex-col items-center gap-3 bg-size[100%_100%] bg-center bg-no-repeat px-16 py-6"
     :style="panelStyle"
   >
     <h2 class="text-lg tracking-widest whitespace-nowrap text-slate-100 uppercase">
       Configure Match
     </h2>
-    <template v-if="charactersStore.activeCharacter">
-      <ClassSelect
-        :character-id="charactersStore.activeCharacter.id"
-        :character-class="charactersStore.activeCharacter.characterClass"
-      />
-      <AttributeList :character="charactersStore.activeCharacter" />
-      <WeaponSelect
-        :character-id="charactersStore.activeCharacter.id"
-        :weapon-slug="charactersStore.activeCharacter.weaponSlug"
-      />
-    </template>
+    <div class="flex w-full flex-1 flex-col items-center gap-3 overflow-y-auto">
+      <template v-if="charactersStore.activeCharacter">
+        <ClassSelect
+          :character-id="charactersStore.activeCharacter.id"
+          :character-class="charactersStore.activeCharacter.characterClass"
+        />
+        <AttributeList :character="charactersStore.activeCharacter" />
+        <WeaponSelect
+          :character-id="charactersStore.activeCharacter.id"
+          :weapon-slug="charactersStore.activeCharacter.weaponSlug"
+        />
+        <EnhancementsPanel
+          :character-id="charactersStore.activeCharacter.id"
+          :enhancement-ids="charactersStore.activeCharacter.enhancementIds"
+        />
+      </template>
+    </div>
     <PixelButton label="Start Battle" @click="emit('startBattle')" />
     <PixelButton label="Back" @click="emit('back')" />
   </div>
