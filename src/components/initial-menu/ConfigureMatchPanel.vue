@@ -25,7 +25,7 @@ const panelStyle = computed(() => ({
 
 <template>
   <div
-    class="flex h-[30rem] w-[28rem] flex-col items-center justify-center gap-3 bg-[length:100%_100%] bg-center bg-no-repeat px-16"
+    class="flex h-120 w-md flex-col items-center justify-center gap-3 bg-size[100%_100%] bg-center bg-no-repeat px-16"
     :style="panelStyle"
   >
     <h2 class="text-lg tracking-widest whitespace-nowrap text-slate-100 uppercase">
