@@ -19,6 +19,7 @@ export const useCharactersStore = defineStore('characters', () => {
         characterClass: 'fighter',
         attributes: distributeAttributes(pool, 'fighter'),
         weaponSlug: null,
+        enhancementIds: [],
       },
     ]
   }
@@ -39,11 +40,19 @@ export const useCharactersStore = defineStore('characters', () => {
     character.weaponSlug = weaponSlug
   }
 
+  function setCharacterEnhancements(id: string, enhancementIds: string[]): void {
+    const character = characters.value.find((candidate) => candidate.id === id)
+    if (!character) return
+
+    character.enhancementIds = enhancementIds
+  }
+
   return {
     characters,
     activeCharacter,
     rollNewCharacter,
     setCharacterClass,
     setCharacterWeapon,
+    setCharacterEnhancements,
   }
 })
