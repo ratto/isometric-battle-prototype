@@ -7,4 +7,5 @@ export interface Character {
   characterClass: CharacterClass
   attributes: Record<AttributeCode, number>
   weaponSlug: string | null
+  enhancementIds: string[]
 }

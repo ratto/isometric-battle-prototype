@@ -2,7 +2,12 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { openDatabase, saveDatabase, DB_FILE_PATH } from './sqliteFile.ts'
-import { ensureWeaponrySchema, WEAPONRY_TABLE } from './schema.ts'
+import {
+  ensureWeaponrySchema,
+  WEAPONRY_TABLE,
+  ensureEnhancementsSchema,
+  ENHANCEMENTS_TABLE,
+} from './schema.ts'
 
 interface WeaponSeedRow {
   slug: string
@@ -18,8 +23,18 @@ interface WeaponSeedRow {
   source: string
 }
 
+interface EnhancementSeedRow {
+  id: string
+  name: string
+  group_key: string
+  polarity: string
+  cost: number
+  effect: string
+}
+
 const scriptsDbDir = path.dirname(fileURLToPath(import.meta.url))
 const WEAPONS_DATA_PATH = path.join(scriptsDbDir, 'data', 'weapons.json')
+const ENHANCEMENTS_DATA_PATH = path.join(scriptsDbDir, 'data', 'enhancements.json')
 
 const UPSERT_SQL = `
 INSERT INTO ${WEAPONRY_TABLE}
@@ -39,15 +54,32 @@ ON CONFLICT(slug) DO UPDATE SET
   source = excluded.source;
 `
 
+const ENHANCEMENTS_UPSERT_SQL = `
+INSERT INTO ${ENHANCEMENTS_TABLE}
+  (id, name, group_key, polarity, cost, effect)
+VALUES
+  (:id, :name, :group_key, :polarity, :cost, :effect)
+ON CONFLICT(id) DO UPDATE SET
+  name = excluded.name,
+  group_key = excluded.group_key,
+  polarity = excluded.polarity,
+  cost = excluded.cost,
+  effect = excluded.effect;
+`
+
 async function main(): Promise<void> {
   const weapons: WeaponSeedRow[] = JSON.parse(fs.readFileSync(WEAPONS_DATA_PATH, 'utf8'))
+  const enhancements: EnhancementSeedRow[] = JSON.parse(
+    fs.readFileSync(ENHANCEMENTS_DATA_PATH, 'utf8'),
+  )
 
   const db = await openDatabase()
   ensureWeaponrySchema(db)
+  ensureEnhancementsSchema(db)
 
-  const statement = db.prepare(UPSERT_SQL)
+  const weaponStatement = db.prepare(UPSERT_SQL)
   for (const weapon of weapons) {
-    statement.run({
+    weaponStatement.run({
       ':slug': weapon.slug,
       ':name': weapon.name,
       ':description': weapon.description,
@@ -61,12 +93,26 @@ async function main(): Promise<void> {
       ':source': weapon.source,
     })
   }
-  statement.free()
+  weaponStatement.free()
+
+  const enhancementStatement = db.prepare(ENHANCEMENTS_UPSERT_SQL)
+  for (const enhancement of enhancements) {
+    enhancementStatement.run({
+      ':id': enhancement.id,
+      ':name': enhancement.name,
+      ':group_key': enhancement.group_key,
+      ':polarity': enhancement.polarity,
+      ':cost': enhancement.cost,
+      ':effect': enhancement.effect,
+    })
+  }
+  enhancementStatement.free()
 
   saveDatabase(db)
   db.close()
 
   console.log(`Seeded ${weapons.length} weapons into ${WEAPONRY_TABLE} (${DB_FILE_PATH})`)
+  console.log(`Seeded ${enhancements.length} enhancements into ${ENHANCEMENTS_TABLE} (${DB_FILE_PATH})`)
 }
 
 main()

@@ -23,3 +23,22 @@ CREATE TABLE IF NOT EXISTS ${WEAPONRY_TABLE} (
 export function ensureWeaponrySchema(db: Database): void {
   db.run(CREATE_WEAPONRY_TABLE_SQL)
 }
+
+export const ENHANCEMENTS_TABLE = 'ENHANCEMENTS'
+
+export const DROP_ENHANCEMENTS_TABLE_SQL = `DROP TABLE IF EXISTS ${ENHANCEMENTS_TABLE};`
+
+export const CREATE_ENHANCEMENTS_TABLE_SQL = `
+CREATE TABLE IF NOT EXISTS ${ENHANCEMENTS_TABLE} (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  group_key TEXT NOT NULL,
+  polarity TEXT NOT NULL,
+  cost INTEGER NOT NULL,
+  effect TEXT NOT NULL
+);
+`
+
+export function ensureEnhancementsSchema(db: Database): void {
+  db.run(CREATE_ENHANCEMENTS_TABLE_SQL)
+}
